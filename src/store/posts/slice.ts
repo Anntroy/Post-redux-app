@@ -1,51 +1,54 @@
 // postSlice.ts
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-
-export interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Post } from '../../interfaces';
 
 interface PostsState {
   posts: Post[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  loading: boolean;
   error: string | null;
 }
 
 const initialState: PostsState = {
-  posts: [],
-  status: 'idle',
+  posts: [] as Post[],
+  loading: false,
   error: null,
 };
 
-const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-  return (await response.json()) as Post[];
+export const fetchPosts = createAsyncThunk<Post[], void, { rejectValue: string }>('posts/fetchPosts', async (_, thunkAPI) => {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    return response.data as Post[] | any;
+  } catch (error) {
+    return thunkAPI.rejectWithValue('Failed to fetch posts.');
+  }
 });
 
 const postsSlice = createSlice({
   name: 'posts',
-  initialState,
-  reducers: {},
+  initialState: initialState,
+  reducers: {
+    deletePostById: (state, action) => {
+      const id = action.payload;
+      state.posts = state.posts.filter((post) => post.id !== id);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
-        state.status = 'loading';
+        state.loading = true;
+        state.error = null;
       })
-      .addCase(fetchPosts.fulfilled, (state, action: PayloadAction<Post[]>) => {
-        state.status = 'succeeded';
-        // Add any fetched posts to the array
-        state.posts = state.posts.concat(action.payload);
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.loading = false;
+        state.error = action.error.message || 'Something went wrong';
       });
   },
 });
 
 export default postsSlice.reducer;
-
-export { fetchPosts };
+export const { deletePostById } = postsSlice.actions;
