@@ -1,66 +1,59 @@
-article.card {
+.card {
   max-width: 550px;
   background-color: #f8f8f8;
   border-radius: 8px;
   margin: 1rem;
+  padding: 2em;
 }
 
-.categoria-card {
+.card__category {
   margin-top: 1rem;
 }
-.categoria-card span {
-  background: #25c4d8;
-  border-radius: 4px;
-  padding: 0.2rem 0.5rem;
-  color: #fff;
-}
-.card footer {
-  padding: 0 1rem;
-}
-.perfil-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Add this to space out the avatar and options */
-}
-.img-perfil-card {
-  display: flex;
-}
-.img-perfil-card img {
-  width: 50px;
-  border-radius: 50%;
-  margin: 1rem 1rem 1rem 0;
-}
-.text-perfil-card {
-  display: flex;
-  flex-flow: column;
-}
-.text-perfil-card span:nth-child(2) {
-  color: #cfcfcf;
+
+.card__category h3::first-letter,
+.card__text p::first-letter {
+  text-transform: capitalize;
 }
 
-.options-button:hover {
+.card__profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card__options-button {
+  border: none;
+  outline: none;
+}
+
+.card__options-button:hover {
   background-color: #c7c8c9;
   border: none;
   outline: none;
 }
 
-.options-button:focus {
+.card__options-button:focus {
   outline: none;
   border: none;
 }
 
-.options {
+.card__options {
   position: relative;
 }
 
-.dropdown {
+.card__dropdown {
   position: absolute;
   left: 100%;
   top: 0;
-  /* other styles... */
+  background-color: white;
+  border: 1px solid #c7c8c9;
+  border-radius: 6px;
+  padding: 2px;
 }
 
-.dropdown button {
+.card__dropdown button {
+  font-size: small;
+  font-weight: 400;
   background: none;
   border: none;
   padding: 0;

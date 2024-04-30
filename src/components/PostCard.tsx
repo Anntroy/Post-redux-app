@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './PostCard.css';
-import { useDeletePostMutation } from '../services/posts';
 
 interface PostProps {
   userId: number;
@@ -12,7 +11,6 @@ interface PostProps {
 
 export default function PostCard(props: PostProps) {
   const { userId, title, body, id, deletePost } = props;
-  // const [deletePost] = useDeletePostMutation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -22,24 +20,24 @@ export default function PostCard(props: PostProps) {
   return (
     <section className='card-wrap'>
       <article className='card'>
-        <div className='categoria-card'>
+        <div className='card__category'>
           <h3>{title}</h3>
         </div>
-        <div className='texto-card'>
+        <div className='card__text'>
           <p>{body}</p>
         </div>
-        <div className='perfil-card'>
-          <div className='avatar'>
-            <img src='https://via.placeholder.com/50' alt='User avatar' className='round-image' />
+        <div className='card__profile'>
+          <div className='card__user'>
             <span>User {userId}</span>
           </div>
-          <div className='options' onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-            <button onClick={toggleDropdown} className='options-button'>
+          <div className='card__options' onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
+            <button onClick={toggleDropdown} className='card__options-button'>
               &#x22ee;
             </button>
             {dropdownOpen && (
-              <div className='dropdown'>
+              <div className='card__dropdown'>
                 <button onClick={() => deletePost(id)}>Delete</button>
+                <button onClick={() => deletePost(id)}>Update</button>
               </div>
             )}
           </div>

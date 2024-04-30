@@ -1,38 +1,45 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import PostCard from './components/PostCard';
-import { useGetAllPostsQuery } from './services/posts';
 import { v4 as uuidv4 } from 'uuid';
-
-export interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
+import { Post } from './interfaces';
 
 const App: React.FC = () => {
-  const { isLoading, data, error } = useGetAllPostsQuery();
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => response.json())
+      .then((data) => setPosts(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   const handleDelete = (id: number) => {
-    const filteredPosts = data?.filter((post, postId) => postId !== id);
+    const filteredPosts = posts?.filter((post) => post.id !== id);
     console.log('filteredPosts', filteredPosts);
+    setPosts(filteredPosts);
   };
 
-  console.log('data', data);
+  console.log('posts', posts);
   return (
     <div className='main'>
-      {error ? (
-        <>Oh no, there was an error</>
-      ) : isLoading ? (
-        <>Loading...</>
-      ) : data ? (
-        <>
-          {data.map((post) => (
-            <PostCard userId={post.userId} key={uuidv4()} title={post.title} body={post.body} id={post.id} deletePost={handleDelete} />
-          ))}
-        </>
-      ) : null}
+      {posts?.map((post) => (
+        <PostCard userId={post.userId} key={uuidv4()} title={post.title} body={post.body} id={post.id} deletePost={handleDelete} />
+      ))}
     </div>
+    // <div className='main'>
+    //   {error ? (
+    //     <>Oh no, there was an error</>
+    //   ) : isLoading ? (
+    //     <>Loading...</>
+    //   ) : data ? (
+    //     <>
+    //       {data.map((post) => (
+    //         <PostCard userId={post.userId} key={uuidv4()} title={post.title} body={post.body} id={post.id} deletePost={handleDelete} />
+    //       ))}
+    //     </>
+    //   ) : null}
+    // </div>
   );
 };
 
