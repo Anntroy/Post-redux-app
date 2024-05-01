@@ -48,7 +48,10 @@
   background-color: white;
   border: 1px solid #c7c8c9;
   border-radius: 6px;
-  padding: 2px;
+  padding: 4px;
+}
+.card__dropdown:hover {
+  background-color: #c7c8c9;
 }
 
 .card__dropdown button {
@@ -64,4 +67,9 @@
   padding: 0.5rem 1rem;
   text-align: left;
   width: 100%;
+}
+
+.card__dropdown button:active {
+  outline: none;
+  border: none;
 }

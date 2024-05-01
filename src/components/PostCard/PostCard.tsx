@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import './PostCard.css';
 
-interface PostProps {
+export interface PostProps {
   userId: number;
   id: number;
   title: string;
-  body: string;
+  body?: string;
   deletePost: (id: number) => void;
 }
 
@@ -37,7 +37,6 @@ export default function PostCard(props: PostProps) {
             {dropdownOpen && (
               <div className='card__dropdown'>
                 <button onClick={() => deletePost(id)}>Delete</button>
-                <button onClick={() => deletePost(id)}>Update</button>
               </div>
             )}
           </div>

@@ -19,13 +19,11 @@ const App: React.FC = () => {
     dispatch(deletePostById(id));
   };
 
-  return (
-    <>
-      {error ? <>Something went wrong! Error: {error}</> : null}
-      {loading ? <>Loading...</> : null}
-      {postsList ? <PostList postsList={postsList} handleDelete={handleDelete} /> : null}
-    </>
-  );
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Something went wrong! Error: {error}</div>;
+  if (postsList!.length === 0) return <div>No posts are available!</div>;
+
+  return <>{postsList ? <PostList postsList={postsList} handleDelete={handleDelete} /> : null}</>;
 };
 
 export default App;
