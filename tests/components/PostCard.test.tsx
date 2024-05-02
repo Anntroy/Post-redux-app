@@ -27,6 +27,7 @@ describe('PostCard', () => {
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('Title');
   });
+
   it('should render delete button when option button is clicked', async () => {
     const { optionsButton } = renderContent();
     const user = userEvent.setup();

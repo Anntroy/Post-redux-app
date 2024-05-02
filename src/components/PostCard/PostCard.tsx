@@ -14,7 +14,7 @@ export default function PostCard(props: PostCardProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <section className='card'>
+    <section className='card' data-testid='post'>
       <article className='card__container'>
         <div className='card__category'>
           <h3>{title}</h3>

@@ -15,7 +15,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
-  }, [dispatch]);
+  }, []);
 
   const handleDelete = (id: number) => {
     dispatch(deletePostById(id));
