@@ -8,6 +8,9 @@ interface PostsState {
   loading: boolean;
   error: string | null;
 }
+interface PostsAction {
+  payload: number;
+}
 
 const initialState: PostsState = {
   posts: [] as Post[],
@@ -28,7 +31,7 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
-    deletePostById: (state, action) => {
+    deletePostById: (state, action: PostsAction) => {
       const id = action.payload;
       state.posts = state.posts.filter((post) => post.id !== id);
     },
