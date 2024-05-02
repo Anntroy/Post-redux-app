@@ -17,8 +17,8 @@ const initialState: PostsState = {
 
 export const fetchPosts = createAsyncThunk<Post[], void, { rejectValue: string }>('posts/fetchPosts', async (_, thunkAPI) => {
   try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    return response.data as Post[] | any;
+    const response = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
+    return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue('Failed to fetch posts.');
   }

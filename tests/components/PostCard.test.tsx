@@ -4,7 +4,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import PostCard from '../../src/components/PostCard/PostCard';
 
-render;
 describe('PostCard', () => {
   const renderContent = () => {
     render(
@@ -30,7 +29,6 @@ describe('PostCard', () => {
   });
   it('should render delete button when option button is clicked', async () => {
     const { optionsButton } = renderContent();
-    screen.debug();
     const user = userEvent.setup();
     await waitFor(() => {
       user.click(optionsButton);

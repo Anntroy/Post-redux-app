@@ -21,18 +21,18 @@
   justify-content: space-between;
 }
 
-.card__options-button {
+.card__button {
   border: none;
   outline: none;
 }
 
-.card__options-button:hover {
+.card__button:hover {
   background-color: #c7c8c9;
   border: none;
   outline: none;
 }
 
-.card__options-button:focus {
+.card__button:focus {
   outline: none;
   border: none;
 }

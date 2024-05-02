@@ -13,8 +13,8 @@ export default function PostList(props: PostListProps) {
 
   return (
     <div className='main'>
-      {postsList?.map((post) => (
-        <PostCard userId={post.userId} key={uuidv4()} title={post.title} body={post.body} id={post.id} deletePost={handleDelete} />
+      {postsList?.map(({ id, userId, title, body }) => (
+        <PostCard userId={userId} key={uuidv4()} title={title} body={body} id={id} deletePost={handleDelete} />
       ))}
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './PostCard.css';
 
-export interface PostProps {
+export interface PostCardProps {
   userId: number;
   id: number;
   title: string;
@@ -9,17 +9,13 @@ export interface PostProps {
   deletePost: (id: number) => void;
 }
 
-export default function PostCard(props: PostProps) {
+export default function PostCard(props: PostCardProps) {
   const { userId, title, body, id, deletePost } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
   return (
-    <section className='card-wrap'>
-      <article className='card'>
+    <section className='card'>
+      <article className='card__container'>
         <div className='card__category'>
           <h3>{title}</h3>
         </div>
@@ -31,7 +27,7 @@ export default function PostCard(props: PostProps) {
             <span>User {userId}</span>
           </div>
           <div className='card__options' onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-            <button onClick={toggleDropdown} className='card__options-button'>
+            <button onClick={() => setDropdownOpen(!dropdownOpen)} className='card__button'>
               &#x22ee;
             </button>
             {dropdownOpen && (
