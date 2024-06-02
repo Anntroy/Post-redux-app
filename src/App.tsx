@@ -6,6 +6,7 @@ import PostList from './components/PostList/PostList';
 import { Header } from '../src/components/Header/Header';
 
 import './App.css';
+import { Example } from './components/Example';
 
 const App: React.FC = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -37,7 +38,7 @@ const App: React.FC = () => {
   return (
     <>
       <Header postCount={postsList.length} />
-      {postsList ? <PostList postsList={postsList} handleDelete={handleDelete} /> : null}
+      <Example />
     </>
   );
 };
